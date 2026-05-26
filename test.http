@@ -1,0 +1,19 @@
+### Upload a file
+POST http://127.0.0.1:8000/api/teams/1/files/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzc4ODQwMDgyLCJpYXQiOjE3Nzg4Mzk3ODIsImp0aSI6ImRkOWM5YWM3NWViNjRhYmI5NjZlNmYxZDRiODQzZjBkIiwidXNlcl9pZCI6IjEifQ.5xxgYv0PjNLW3VOjIPJhGtApE52rrU_YECWQBBd86PeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzc4OTQ4NDYzLCJpYXQiOjE3Nzg5NDgxNjMsImp0aSI6ImM4YWNmODk0MTIyYzQzMzk5NjEzY2ZiYzg3ZWYwY2E2IiwidXNlcl9pZCI6IjEifQ.Xldgyi9lHhl_hAmtoLXw4Nm5XJa53faCPwMje7K2oyQ
+Content-Type: multipart/form-data; boundary=----FormBoundary
+
+------FormBoundary
+Content-Disposition: form-data; name="file"; filename="test.txt"
+Content-Type: text/plain
+
+Hello, this is a test file!
+------FormBoundary
+Content-Disposition: form-data; name="name"
+
+Test Document
+------FormBoundary
+Content-Disposition: form-data; name="description"
+
+A simple test file
+------FormBoundary--

@@ -1,0 +1,157 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+:root {
+    --bg: #f8f9fc;
+    --sidebar-bg: #1a1d23;
+    --sidebar-text: #a8b2c1;
+    --sidebar-active: #ffffff;
+    --card-bg: rgba(255,255,255,0.85);
+    --card-border: rgba(255,255,255,0.3);
+    --primary: #4f46e5;
+    --primary-hover: #4338ca;
+    --danger: #ef4444;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --shadow: 0 10px 25px -5px rgba(0,0,0,0.05), 0 8px 10px -6px rgba(0,0,0,0.02);
+    --radius: 16px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: radial-gradient(circle at 10% 20%, #f0f4ff 0%, #e8ecf8 100%);
+    min-height: 100vh;
+    color: #1e293b;
+}
+
+/* ---------- Glass effect cards ---------- */
+.card, .modal-content {
+    backdrop-filter: blur(12px);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+}
+.modal-content {
+    background: rgba(255,255,255,0.95);
+}
+
+/* ---------- Sidebar ---------- */
+.sidebar {
+    background: var(--sidebar-bg);
+    min-height: 100vh;
+    padding: 1.5rem 1rem;
+    color: var(--sidebar-text);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    box-shadow: 4px 0 20px rgba(0,0,0,0.15);
+}
+.sidebar h5 {
+    color: var(--sidebar-active);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+.sidebar .list-group-item {
+    background: transparent;
+    border: none;
+    color: var(--sidebar-text);
+    border-radius: 12px;
+    margin-bottom: 4px;
+    transition: all 0.2s;
+}
+.sidebar .list-group-item:hover, .sidebar .list-group-item.active {
+    background: rgba(255,255,255,0.08);
+    color: var(--sidebar-active);
+    transform: translateX(4px);
+}
+.sidebar .btn-primary {
+    background: var(--primary);
+    border: none;
+    border-radius: 12px;
+    padding: 8px 16px;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+.sidebar .btn-primary:hover {
+    background: var(--primary-hover);
+    transform: scale(1.02);
+}
+
+/* ---------- Navbar ---------- */
+.navbar {
+    background: rgba(26,29,35,0.95) !important;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+}
+
+/* ---------- Table / task rows ---------- */
+.table {
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(8px);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+.table thead th {
+    background: rgba(255,255,255,0.5);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    font-weight: 600;
+    color: #475569;
+}
+.task-row {
+    transition: background 0.15s, transform 0.1s;
+}
+.task-row:hover {
+    background: rgba(79,70,229,0.04);
+    transform: scale(1.005);
+}
+
+/* ---------- Badges ---------- */
+.badge {
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.3px;
+}
+.badge-todo { background: #e2e8f0; color: #475569; }
+.badge-in_progress, .badge-in-progress { background: #dbeafe; color: #1e40af; }
+.badge-done { background: #d1fae5; color: #065f46; }
+
+/* ---------- Buttons ---------- */
+.btn {
+    border-radius: 10px;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+.btn-primary {
+    background: var(--primary);
+    border: none;
+}
+.btn-primary:hover {
+    background: var(--primary-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(79,70,229,0.3);
+}
+.btn-outline-light:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+/* ---------- Animations ---------- */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.team-card, .task-row {
+    animation: fadeInUp 0.4s ease both;
+}
+
+/* Smooth scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 10px; }

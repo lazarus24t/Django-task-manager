@@ -1,0 +1,125 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager - Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'frontend/auth.css' %}">
+</head>
+<body>
+    <!-- LOGIN CARD -->
+    <div class="auth-container" id="loginCard">
+        <h2>Welcome Back</h2>
+        <input type="email" id="email" placeholder="Email address" value="john@example.com">
+        <input type="password" id="password" placeholder="Password" value="securepass123">
+        <button onclick="performLogin()">Sign In</button>
+        <div class="error" id="loginError"></div>
+        <div class="switch">
+            New here? <a onclick="showRegister()">Create account</a>
+        </div>
+    </div>
+
+    <!-- REGISTER CARD (hidden by default) -->
+    <div class="auth-container" id="registerCard" style="display: none;">
+        <h2>Create Account</h2>
+        <input type="text" id="regUsername" placeholder="Username">
+        <input type="email" id="regEmail" placeholder="Email address">
+        <input type="password" id="regPassword" placeholder="Password (min 6 chars)">
+        <button onclick="register()">Sign Up</button>
+        <div class="error" id="regError"></div>
+        <div id="regSuccess" style="color:#10b981; text-align:center; margin-top:0.5rem; display:none;">Account created! Logging you in...</div>
+        <div class="switch">
+            Already have an account? <a onclick="showLogin()">Sign in</a>
+        </div>
+    </div>
+
+    <script>
+        const API = '/api';
+
+        function showRegister() {
+            document.getElementById('loginCard').style.display = 'none';
+            document.getElementById('registerCard').style.display = 'block';
+            document.getElementById('regError').innerText = '';
+            document.getElementById('regSuccess').style.display = 'none';
+        }
+        function showLogin() {
+            document.getElementById('registerCard').style.display = 'none';
+            document.getElementById('loginCard').style.display = 'block';
+            document.getElementById('loginError').innerText = '';
+        }
+
+        // Universal login function (can be called from UI or auto-login after register)
+        async function login(email, password) {
+            const errorEl = document.getElementById('loginError');
+            errorEl.innerText = '';
+            try {
+                const res = await fetch(`${API}/login/`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    localStorage.setItem('access', data.access);
+                    localStorage.setItem('refresh', data.refresh);
+                    window.location.href = '/dashboard/';
+                } else {
+                    throw new Error(data.detail || 'Invalid credentials');
+                }
+            } catch (e) {
+                errorEl.innerText = e.message;
+            }
+        }
+
+        // Called from the login button (reads values from input fields)
+        function performLogin() {
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            login(email, password);
+        }
+
+        async function register() {
+            const username = document.getElementById('regUsername').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const password = document.getElementById('regPassword').value;
+            const errorEl = document.getElementById('regError');
+            const successEl = document.getElementById('regSuccess');
+            errorEl.innerText = '';
+            successEl.style.display = 'none';
+
+            // Basic validation
+            if (!username || !email || !password) {
+                errorEl.innerText = 'All fields are required.';
+                return;
+            }
+            if (password.length < 6) {
+                errorEl.innerText = 'Password must be at least 6 characters.';
+                return;
+            }
+
+            try {
+                const res = await fetch(`${API}/register/`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, email, password })
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    // Show success and auto-login
+                    successEl.style.display = 'block';
+                    setTimeout(async () => {
+                        await login(email, password);
+                    }, 500); // slight delay so user sees the success message
+                } else {
+                    const messages = Object.values(data).flat().join(' ');
+                    errorEl.innerText = messages || 'Registration failed';
+                }
+            } catch (e) {
+                errorEl.innerText = 'Network error, please try again.';
+            }
+        }
+    </script>
+</body>
+</html>
