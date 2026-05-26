@@ -3,7 +3,7 @@
 A full-stack task management application built with Django REST Framework and a vanilla JavaScript frontend.  
 It features team‑based task management, JWT authentication, role‑based access control, and a modern glassmorphism UI.
 
-## 🚀 Features
+ Features
 
 - **User authentication** – register & login with JWT tokens (auto‑login after signup)
 - **Teams** – create teams and automatically become admin
@@ -14,14 +14,14 @@ It features team‑based task management, JWT authentication, role‑based acces
 - **Modern UI** – glassmorphism design, dark sidebar, modals, responsive layout
 - **Separation of concerns** – HTML, CSS, JS split into static files
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 - **Backend:** Django 6.0, Django REST Framework, Simple JWT
 - **Frontend:** Vanilla JavaScript, Bootstrap 5, Bootstrap Icons
 - **Database:** SQLite (development), ready for PostgreSQL
 - **API Docs:** drf-yasg (Swagger / ReDoc)
 
-## ⚙️ Getting Started
+##  Getting Started
 
 ### Prerequisites
 - Python 3.10+
